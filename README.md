@@ -1,4 +1,4 @@
-````md
+
 # soe — Semicolon On Enter
 
 A small VS Code extension that automatically inserts `;` when you press **Enter**, with sensible guardrails.
@@ -119,5 +119,3 @@ If you want less friction when typing, this is for you.
 
 MIT
 
-```
-```
