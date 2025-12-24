@@ -2,7 +2,7 @@
   "name": "soe",
   "displayName": "Semicolon On Enter",
   "description": "Insert ';' before a newline if the last character before Enter is not '{' or '}'.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "karvashish",
   "license": "MIT",
   "repository": {
@@ -13,7 +13,7 @@
     "vscode": "^1.80.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages"
   ],
   "activationEvents": [
     "onStartupFinished",
