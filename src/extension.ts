@@ -18,15 +18,21 @@ export function activate(context: vscode.ExtensionContext) {
       // Enter often inserts "\n" plus indentation (e.g. "\n    ").
       if (!startsWithNewline(c.text)) continue;
 
-      // Insertion point where the newline starts in the *new* document.
       const insertOffset = e.document.offsetAt(c.range.start);
       if (insertOffset <= 0) continue;
 
+      // Character immediately before Enter.
       const prevOffset = insertOffset - 1;
       const prevPos = e.document.positionAt(prevOffset);
       const insertPos = e.document.positionAt(insertOffset);
 
       const prevChar = e.document.getText(new vscode.Range(prevPos, insertPos));
+
+      // Do not add on empty/whitespace-only lines.
+      const line = e.document.lineAt(c.range.start.line);
+      const linePrefix = line.text.slice(0, c.range.start.character);
+      if (linePrefix.trim().length === 0) continue;
+
       if (prevChar === "{" || prevChar === "}") continue;
       if (prevChar === ";") continue;
 
@@ -34,7 +40,6 @@ export function activate(context: vscode.ExtensionContext) {
       try {
         await editor.edit(
           (editBuilder) => {
-            // Insert ';' before the newline (at start of inserted text).
             editBuilder.insert(c.range.start, ";");
           },
           { undoStopBefore: false, undoStopAfter: false }
